@@ -1,0 +1,22 @@
+{
+    "name": "dotsplatform/zoning-api-php-sdk",
+    "description": "Client SDK for zoning",
+    "type": "library",
+    "license": "Apache License",
+    "authors": [
+        {
+            "name": "Yehor Herasymchuk",
+            "email": "yehor@dotplatform.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dotsplatform\\Zoning\\": "src/App"
+        }
+    }
+}
