@@ -9,8 +9,9 @@ namespace Dotsplatform\Zoning\Http;
 
 use Dotsplatform\Zoning\Http\Exception\ZoningHttpClientException;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
-use Throwable;
 
 abstract class HttpClient
 {
@@ -37,39 +38,39 @@ abstract class HttpClient
         return $this->client;
     }
 
-    protected function get($uri, $params = []): ?array
+    protected function get(string $uri, array $params = []): array
     {
         $client = $this->makeClient();
         $response = $client->get($uri, $params);
         $statusCode = $response->getStatusCode();
         if ($statusCode === 404) {
-            return null;
+            return [];
         }
         return $this->decodeResponse($response);
     }
 
-    protected function post(string $uri, array $body = null, $params = []): ?array
+    protected function post(string $uri, ?array $body = null, array $params = []): array
     {
         $client = $this->makeClient();
         $params = $this->prepareRequestBody($body, $params);
 
         try {
             $response = $client->post($uri, $params);
-        } catch (Throwable $e) {
+        } catch (ClientException $e) {
             $response = $e->getResponse();
         }
-        $this->parseResponseStatus($e->getResponse());
+        $this->parseResponseStatus($response);
         return $this->decodeResponse($response);
     }
 
-    protected function put(string $uri, array $body = null, $params = []): ?array
+    protected function put(string $uri, ?array $body = null, array $params = []): array
     {
         $client = $this->makeClient();
         $params = $this->prepareRequestBody($body, $params);
 
         try {
             $response = $client->put($uri, $params);
-        } catch (Throwable $e) {
+        } catch (ClientException $e) {
             $response = $e->getResponse();
         }
 
@@ -77,13 +78,13 @@ abstract class HttpClient
         return $this->decodeResponse($response);
     }
 
-    protected function delete($uri, $params = [])
+    protected function delete(string $uri, array $params = []): array
     {
         $client = $this->makeClient();
 
         try {
             $response = $client->delete($uri, $params);
-        } catch (Throwable $e) {
+        } catch (ClientException $e) {
             $response = $e->getResponse();
         }
 
@@ -126,5 +127,4 @@ abstract class HttpClient
         }
         return $data;
     }
-
 }

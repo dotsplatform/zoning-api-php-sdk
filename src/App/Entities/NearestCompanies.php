@@ -7,8 +7,6 @@
 
 namespace Dotsplatform\Zoning\Entities;
 
-
 class NearestCompanies
 {
-
 }

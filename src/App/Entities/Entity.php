@@ -7,11 +7,9 @@
 
 namespace Dotsplatform\Zoning\Entities;
 
-use Illuminate\Contracts\Support\Arrayable;
-
-abstract class Entity implements Arrayable
+abstract class Entity
 {
-    private function __construct(
+    final private function __construct(
         array $data
     ) {
         $this->assertConstructDataIsValid($data);
@@ -53,7 +51,7 @@ abstract class Entity implements Arrayable
         $properties = static::getProperties();
 
         foreach ($properties as $property) {
-            if ($this->$property instanceof Arrayable) {
+            if ($this->$property instanceof Entity) {
                 $data[$property] = $this->$property->toArray();
             } else {
                 $data[$property] = $this->$property;
@@ -63,7 +61,7 @@ abstract class Entity implements Arrayable
         return $data;
     }
 
-    public function isEquals(?Arrayable $obj): bool
+    public function isEquals(?Entity $obj): bool
     {
         if (! $obj) {
             return false;
@@ -72,7 +70,7 @@ abstract class Entity implements Arrayable
         return empty($this->diffAttributes($obj));
     }
 
-    public function diffAttributes(?Arrayable $obj): array
+    public function diffAttributes(?Entity $obj): array
     {
         if (! $obj) {
             return $this->toArray();

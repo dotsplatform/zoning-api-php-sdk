@@ -7,7 +7,6 @@
 
 namespace Dotsplatform\Zoning\Entities;
 
-
 class Company extends Entity
 {
     protected string $accountId;
@@ -20,7 +19,7 @@ class Company extends Entity
 
     public static function fromArray(array $data): static
     {
-        $data['deliveryArea'] = DeliveryArea::fromArray($data['deliveryArea']);
+        $data['deliveryArea'] =   DeliveryArea::fromArray($data['deliveryArea']);
         $data['location'] = Location::fromArray($data['location']);
         return parent::fromArray($data);
     }
@@ -29,5 +28,4 @@ class Company extends Entity
     {
         return $this->id;
     }
-
 }

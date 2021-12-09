@@ -29,7 +29,6 @@ class ZoningApiClient extends HttpClient
                 'json' => true,
             ]);
         } catch (Throwable $e) {
-
         }
     }
 
@@ -51,9 +50,8 @@ class ZoningApiClient extends HttpClient
             ]
         ]);
         if (empty($data)) {
-            return new NearestCompanies;
+            return new NearestCompanies();
         }
-        return new NearestCompanies;
+        return new NearestCompanies();
     }
-
 }

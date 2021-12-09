@@ -7,7 +7,6 @@
 
 namespace Dotsplatform\Zoning\Entities;
 
-
 class Location extends Entity
 {
     protected ?float $latitude = null;
@@ -30,5 +29,4 @@ class Location extends Entity
     {
         return $this->longitude;
     }
-
 }
