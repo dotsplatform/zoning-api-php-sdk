@@ -2,7 +2,7 @@
     "name": "dotsplatform/zoning-api-php-sdk",
     "description": "Client SDK for zoning",
     "type": "library",
-    "license": "Apache License 2.0",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Yehor Herasymchuk",
